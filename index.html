@@ -96,6 +96,9 @@
       z-index: 10;
     }
     .filter-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
       padding: 0.3rem 0.85rem;
       border: 1.5px solid currentColor;
       border-radius: 2rem;
@@ -106,12 +109,14 @@
       transition: all 0.15s;
       font-weight: 600;
     }
+    .filter-btn svg { width: 0.85rem; height: 0.85rem; flex-shrink: 0; }
     .filter-btn:hover { opacity: 0.65; }
     .filter-btn.active {
       color: #f4efe5 !important;
       background: #160f08 !important;
       border-color: #160f08 !important;
     }
+    .filter-btn.active svg { stroke: #f4efe5 !important; }
 
     /* ── Timeline ── */
     .timeline-wrap {
@@ -172,7 +177,7 @@
       display: flex;
       justify-content: center;
       flex-shrink: 0;
-      padding-top: 0.75rem;
+      padding-top: 0.8rem;
     }
     .event-dot {
       width: 0.9rem;
@@ -212,8 +217,14 @@
       box-shadow: 0 6px 22px rgba(0,0,0,0.11);
     }
 
+    /* card icon top-right */
     .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.4rem; }
-    .card-icon { font-size: 1rem; opacity: 0.55; flex-shrink: 0; margin-top: 0.05rem; }
+    .card-icon {
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+      opacity: 0.45;
+    }
+    .card-icon svg { width: 1.1rem; height: 1.1rem; display: block; }
 
     .card-kategori {
       font-size: 0.63rem;
@@ -231,16 +242,26 @@
       margin-bottom: 0.28rem;
     }
     .card-lokasi {
+      display: flex;
+      align-items: center;
+      gap: 0.28rem;
       font-size: 0.7rem;
       opacity: 0.55;
       font-style: italic;
       margin-bottom: 0.35rem;
     }
+    .card-lokasi svg { width: 0.75rem; height: 0.75rem; flex-shrink: 0; stroke: currentColor; }
+
+    /* toggle hint */
     .card-toggle-hint {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
       font-size: 0.7rem;
       opacity: 0.4;
       font-style: italic;
     }
+    .card-toggle-hint svg { width: 0.7rem; height: 0.7rem; stroke: currentColor; transition: transform 0.2s; }
 
     /* Expanded body */
     .card-body {
@@ -249,7 +270,7 @@
       padding-top: 0.55rem;
       display: none;
     }
-    .event-card.open .card-body       { display: block; }
+    .event-card.open .card-body        { display: block; }
     .event-card.open .card-toggle-hint { display: none; }
 
     .card-desc {
@@ -262,6 +283,9 @@
 
     /* Sumber */
     .sumber-label {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
       font-size: 0.65rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
@@ -270,6 +294,7 @@
       margin-bottom: 0.3rem;
       color: #2c2416;
     }
+    .sumber-label svg { width: 0.7rem; height: 0.7rem; stroke: currentColor; }
     .sumber-list { display: flex; flex-direction: column; gap: 0.28rem; }
     .sumber-link {
       display: flex;
@@ -285,10 +310,12 @@
       word-break: break-word;
     }
     .sumber-link:hover { background: rgba(0,0,0,0.12); }
-    .sumber-icon { opacity: 0.5; flex-shrink: 0; font-size: 0.85rem; }
+    .sumber-link-icon { flex-shrink: 0; opacity: 0.5; }
+    .sumber-link-icon svg { width: 0.78rem; height: 0.78rem; display: block; stroke: currentColor; }
     .sumber-label-text { flex: 1; }
     .sumber-domain { font-size: 0.62rem; opacity: 0.45; font-weight: 400; font-style: italic; }
-    .sumber-arrow { opacity: 0.4; font-size: 0.75rem; }
+    .sumber-arrow { flex-shrink: 0; opacity: 0.4; }
+    .sumber-arrow svg { width: 0.72rem; height: 0.72rem; display: block; stroke: currentColor; }
 
     /* ── Legend ── */
     .legend {
@@ -303,16 +330,11 @@
     .legend-item {
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.45rem;
       font-size: 0.73rem;
       font-weight: 600;
     }
-    .legend-dot {
-      width: 0.7rem;
-      height: 0.7rem;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
+    .legend-item svg { width: 0.9rem; height: 0.9rem; flex-shrink: 0; }
 
     footer {
       text-align: center;
@@ -335,14 +357,14 @@
 
   <header>
     <div class="header-label">Laporan Konflik &amp; Krisis Lingkungan</div>
-    <h1>Kintamani, Bangli, Bali</h1>
+    <h1>Kintamani, Bangli — Bali</h1>
     <div class="subtitle">Peta peristiwa konflik, bencana, dan alih fungsi lahan · 2016–2026</div>
   </header>
 
   <div class="stat-bar" id="stat-bar"></div>
   <div class="filter-bar" id="filter-bar"></div>
 
-  <div class="timeline-wrap" id="timeline-wrap">
+  <div class="timeline-wrap">
     <div class="spine"></div>
     <div id="timeline-content"></div>
   </div>
@@ -350,10 +372,27 @@
   <div class="legend" id="legend"></div>
 
   <footer>
-    Data bersumber dari laporan media dan dokumen resmi &middot; Klik kartu untuk melihat detail dan sumber
+    Data bersumber dari laporan media dan dokumen resmi &middot; Oleh: I Gusti Ayu Septiari & Dewa Kresnanta / BaleBengong, 2026
   </footer>
 
   <script>
+    /* ── Lucide SVG paths (outline, stroke-based) ── */
+    const ICONS = {
+      /* kategori */
+      mountain: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>`,
+      flame:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"/></svg>`,
+      leaf:     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`,
+      alert:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+      landmark: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>`,
+      grid:     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>`,
+      /* UI */
+      mappin:   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
+      link:     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
+      arrowup:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>`,
+      chevdown: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`,
+      book:     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
+    };
+
     const events = [
       {
         tahun: 2016,
@@ -362,7 +401,7 @@
         lokasi: "Museum Geopark Batur",
         keterangan: "Museum Geopark Batur sebelumnya bernama Museum Gunung Api Batur.",
         sumber: [
-          { label: "Dinas Pariwisata Bangli", url: "https://www.disparbud.banglikab.go.id/berita/peresmian-museum-geopark-batur-kintamani" }
+          { label: "Dinas Pariwisata Kabupaten Bangli", url: "https://www.disparbud.banglikab.go.id/berita/peresmian-museum-geopark-batur-kintamani" }
         ]
       },
       {
@@ -373,7 +412,7 @@
         keterangan: "Longsor menewaskan 12 orang setelah hujan deras terus-menerus. Salah satu penyebab: alih fungsi lahan dan minimnya tanaman endemik.",
         sumber: [
           { label: "BBC Indonesia", url: "https://www.bbc.com/indonesia/indonesia-38927409" },
-          { label: "Mongabay", url: "https://mongabay.co.id/2017/02/11/longsor-di-sejumlah-kabupaten-di-bali-12-meninggal/" },
+          { label: "Mongabay Indonesia", url: "https://mongabay.co.id/2017/02/11/longsor-di-sejumlah-kabupaten-di-bali-12-meninggal/" },
           { label: "Bisnis Bali", url: "https://bali.bisnis.com/read/20170211/537/776158/alih-fungsi-lahan-minim-tanaman-endemik-picu-longsor-di-bali-" }
         ]
       },
@@ -464,7 +503,7 @@
         lokasi: "Jalan Raya Batur",
         keterangan: "Penertiban sejumlah bangunan komersial di Kintamani. Beberapa bangunan disegel karena membangun melebihi 50 persen dari lahan yang dimiliki.",
         sumber: [
-          { label: "Den Post", url: "https://www.denpost.id/bangli/105511621506/satpol-pp-segel-bangunan-komersial-di-kintamani" }
+          { label: "Denpost", url: "https://www.denpost.id/bangli/105511621506/satpol-pp-segel-bangunan-komersial-di-kintamani" }
         ]
       },
       {
@@ -474,7 +513,7 @@
         lokasi: "TWA Gunung Batur / Bukit Payang",
         keterangan: "Lahan seluas 85,66 hektar akan dibangun taman rekreasi. PT TPB mengantongi izin Amdal dari Dirjen BKSDA.",
         sumber: [
-          { label: "Bale Bengong", url: "https://balebengong.id/konflik-di-twa-gunung-batur/" }
+          { label: "BaleBengong", url: "https://balebengong.id/konflik-di-twa-gunung-batur/" }
         ]
       },
       {
@@ -484,7 +523,7 @@
         lokasi: "TWA Gunung Batur Bukit Payang",
         keterangan: "Kondisi vegetasi di lokasi kebakaran sangat kering disertai angin kencang sehingga pemadaman mengalami hambatan.",
         sumber: [
-          { label: "KSDA Bali", url: "https://ksda-bali.go.id/berita/pemadaman-kebakaran-hutan-di-kawasan-twa-gunung-batur-bukit-payang" }
+          { label: "Balai Konservasi Sumber Daya Alam (KSDA) Bali", url: "https://ksda-bali.go.id/berita/pemadaman-kebakaran-hutan-di-kawasan-twa-gunung-batur-bukit-payang" }
         ]
       },
       {
@@ -494,7 +533,7 @@
         lokasi: "Beberapa titik Kintamani",
         keterangan: "Selama September 2023, tercatat sembilan kali bencana kebakaran di Kecamatan Kintamani, Bangli. Kebakaran ini menghanguskan 74,9 hektare lahan hutan.",
         sumber: [
-          { label: "Nusa Bali", url: "https://www.nusabali.com/berita/152311/749-hektare-hutan-di-kintamani-terbakar" }
+          { label: "NusaBali", url: "https://www.nusabali.com/berita/152311/749-hektare-hutan-di-kintamani-terbakar" }
         ]
       },
       {
@@ -504,7 +543,7 @@
         lokasi: "TWA Kedisan",
         keterangan: "Pendataan BKSDA: kompleks wisata terdiri dari restoran, toilet, dapur, taman, dan area parkir. Warga meminta bangunan dibongkar karena area rawan banjir.",
         sumber: [
-          { label: "Mongabay", url: "https://mongabay.co.id/2025/10/19/warga-protes-bangunan-wisata-di-hutan-konservasi-bali/" }
+          { label: "Mongabay Indonesia", url: "https://mongabay.co.id/2025/10/19/warga-protes-bangunan-wisata-di-hutan-konservasi-bali/" }
         ]
       },
       {
@@ -529,13 +568,19 @@
       }
     ];
 
+    /* icon key per kategori */
     const kategoriConfig = {
-      "Bencana Alam":      { color: "#c0622a", icon: "⛰️",  bg: "#fff6f0" },
-      "Bencana Ekologis":  { color: "#b52b2b", icon: "🔥",  bg: "#fff2f0" },
-      "Alih Fungsi Lahan": { color: "#2e7d48", icon: "🌿",  bg: "#f0faf3" },
-      "Kriminal":          { color: "#7b35a8", icon: "⚠️",  bg: "#f8f0ff" },
-      "Seremonial":        { color: "#1a6fa8", icon: "🏛️", bg: "#f0f6ff" },
+      "Bencana Alam":      { color: "#c0622a", iconKey: "mountain", bg: "#fff6f0" },
+      "Bencana Ekologis":  { color: "#b52b2b", iconKey: "flame",    bg: "#fff2f0" },
+      "Alih Fungsi Lahan": { color: "#2e7d48", iconKey: "leaf",     bg: "#f0faf3" },
+      "Kriminal":          { color: "#7b35a8", iconKey: "alert",    bg: "#f8f0ff" },
+      "Seremonial":        { color: "#1a6fa8", iconKey: "landmark", bg: "#f0f6ff" },
     };
+
+    /* colour SVG stroke on the fly */
+    function icon(key, color) {
+      return ICONS[key].replace('stroke="currentColor"', `stroke="${color}"`);
+    }
 
     let selectedKategori = "Semua";
 
@@ -552,6 +597,7 @@
         .replace(/"/g, "&quot;");
     }
 
+    /* ── Stat bar ── */
     function renderStats() {
       const totalSumber = events.reduce((s, e) => s + e.sumber.length, 0);
       const bencana = events.filter(e => e.kategori.includes("Bencana")).length;
@@ -564,16 +610,19 @@
       `;
     }
 
+    /* ── Filter bar ── */
     function renderFilters() {
-      const bar = document.getElementById("filter-bar");
+      const bar  = document.getElementById("filter-bar");
       const cats = ["Semua", ...Object.keys(kategoriConfig)];
       bar.innerHTML = cats.map(k => {
-        const cfg   = kategoriConfig[k];
-        const color = cfg ? cfg.color : "#2c2416";
-        const icon  = cfg ? cfg.icon + " " : "";
+        const cfg    = kategoriConfig[k];
+        const color  = cfg ? cfg.color : "#2c2416";
         const active = k === selectedKategori ? "active" : "";
+        const svg    = cfg
+          ? icon(cfg.iconKey, active ? "#f4efe5" : color)
+          : icon("grid", active ? "#f4efe5" : "#2c2416");
         return `<button class="filter-btn ${active}" data-k="${esc(k)}"
-          style="color:${color}; border-color:${color}">${icon}${esc(k)}</button>`;
+          style="color:${color}; border-color:${color}">${svg}${esc(k)}</button>`;
       }).join("");
 
       bar.querySelectorAll(".filter-btn").forEach(btn => {
@@ -585,6 +634,7 @@
       });
     }
 
+    /* ── Timeline ── */
     function renderTimeline() {
       const filtered = selectedKategori === "Semua"
         ? events
@@ -598,45 +648,54 @@
       const years = Object.keys(grouped).sort((a, b) => a - b);
 
       const container = document.getElementById("timeline-content");
-
       if (years.length === 0) {
         container.innerHTML = `<div class="empty">Tidak ada data untuk kategori ini.</div>`;
         return;
       }
 
       container.innerHTML = years.map(year => {
-        const rows = grouped[year].map((ev, i) => {
-          const cfg = kategoriConfig[ev.kategori] || { color: "#888", icon: "•", bg: "#f0f0f0" };
+        const rows = grouped[year].map((ev) => {
+          const cfg   = kategoriConfig[ev.kategori] || { color: "#888", iconKey: "alert", bg: "#f0f0f0" };
+          const color = cfg.color;
 
           const sumberLinks = ev.sumber.map(s => `
             <a class="sumber-link" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer"
-               style="color:${cfg.color}" data-stop>
-              <span class="sumber-icon">🔗</span>
+               style="color:${color}" data-stop>
+              <span class="sumber-link-icon">${icon("link", color)}</span>
               <span class="sumber-label-text">${esc(s.label)}<span class="sumber-domain"> — ${esc(getDomain(s.url))}</span></span>
-              <span class="sumber-arrow">↗</span>
+              <span class="sumber-arrow">${icon("arrowup", color)}</span>
             </a>`).join("");
 
           return `
             <div class="event-row">
               <div class="event-spacer"></div>
               <div class="event-dot-col">
-                <div class="event-dot" style="background:${cfg.color}; box-shadow:0 0 0 2px ${cfg.color}"></div>
+                <div class="event-dot" style="background:${color}; box-shadow:0 0 0 2px ${color}"></div>
               </div>
               <div class="event-card"
-                   style="background:${cfg.bg}; border-color:${cfg.color}; color:#2c2416"
+                   style="background:${cfg.bg}; border-color:${color}; color:#2c2416"
                    role="button" tabindex="0" aria-expanded="false">
                 <div class="card-head">
                   <div>
-                    <div class="card-kategori" style="color:${cfg.color}">${esc(ev.kategori)}</div>
+                    <div class="card-kategori" style="color:${color}">${esc(ev.kategori)}</div>
                     <div class="card-title">${esc(ev.peristiwa)}</div>
-                    <div class="card-lokasi">📍 ${esc(ev.lokasi)}</div>
+                    <div class="card-lokasi">
+                      ${icon("mappin", "#2c2416")}
+                      ${esc(ev.lokasi)}
+                    </div>
                   </div>
-                  <div class="card-icon">${cfg.icon}</div>
+                  <div class="card-icon" style="color:${color}">${icon(cfg.iconKey, color)}</div>
                 </div>
-                <div class="card-toggle-hint">Klik untuk detail &amp; sumber ↓</div>
+                <div class="card-toggle-hint">
+                  ${icon("chevdown", "#2c2416")}
+                  Klik untuk detail &amp; sumber
+                </div>
                 <div class="card-body">
                   <div class="card-desc">${esc(ev.keterangan)}</div>
-                  <div class="sumber-label">Sumber</div>
+                  <div class="sumber-label">
+                    ${icon("book", "#2c2416")}
+                    Sumber
+                  </div>
                   <div class="sumber-list">${sumberLinks}</div>
                 </div>
               </div>
@@ -662,12 +721,13 @@
       });
     }
 
+    /* ── Legend ── */
     function renderLegend() {
       document.getElementById("legend").innerHTML =
         Object.entries(kategoriConfig).map(([k, cfg]) => `
-          <div class="legend-item">
-            <div class="legend-dot" style="background:${cfg.color}"></div>
-            <span style="color:${cfg.color}">${cfg.icon} ${esc(k)}</span>
+          <div class="legend-item" style="color:${cfg.color}">
+            ${icon(cfg.iconKey, cfg.color)}
+            <span>${esc(k)}</span>
           </div>`).join("");
     }
 
